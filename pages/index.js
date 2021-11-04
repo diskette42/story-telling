@@ -542,7 +542,13 @@ function Video() {
                 </div>
               </div>
             )}
-            <div style={{ textAlign: "center", margin: "10px 0px" }}>
+            <div
+              style={{
+                textAlign: "center",
+                margin: "10px 0px",
+                zIndex: "1 !important",
+              }}
+            >
               Actually, the chaos that you’ve seen may not come from the outside
               but from the inside so give the world a try!!!
             </div>
