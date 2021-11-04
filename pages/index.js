@@ -116,7 +116,7 @@ function Video() {
 
   const ref = (player) => {
     setPlayer(player);
-    // console.log(player)
+    // console.log(player);
     // const {context} = player
     // console.log(context)
   };
@@ -126,7 +126,7 @@ function Video() {
   const onProgress = (progress) => {
     const second = (progress.played * videoDuration).toFixed(3);
     setCurrentTime(second);
-    console.log(second);
+    // console.log(second);
     // console.log({second})
   };
 
@@ -163,7 +163,7 @@ function Video() {
     // }
   }, [currentTime]);
   useEffect(() => {
-    console.log(currentTime);
+    // console.log(currentTime);
     if (currentTime > 60 && currentTime < 61) {
       if (secondQuestionAppend == null) {
         setPlaying(false);
@@ -189,7 +189,7 @@ function Video() {
       setIsDivVisible(true);
       setPlaying(false);
 
-      console.log("15 seconds later");
+      // console.log("15 seconds later");
     }, 15000);
     return () => clearTimeout(timer);
   };
@@ -203,7 +203,7 @@ function Video() {
       setPlaying(true);
       const timer = setTimeout(() => {
         setIsDivVisibleforQ2(true);
-        console.log("10 seconds later");
+        // console.log("10 seconds later");
       }, 10000);
       return () => clearTimeout(timer);
     }
@@ -220,7 +220,7 @@ function Video() {
       setPlaying(true);
       const timer = setTimeout(() => {
         setIsDivVisibleforQ2(true);
-        console.log("10 seconds later");
+        // console.log("10 seconds later");
       }, 30000);
       return () => clearTimeout(timer);
     }
@@ -248,7 +248,7 @@ function Video() {
       const timer = setTimeout(() => {
         setPlaying(false);
         setFirstQuestionAppend(true);
-        console.log("10 seconds later");
+        // console.log("10 seconds later");
       }, 5000);
       return () => clearTimeout(timer);
     }
@@ -269,6 +269,7 @@ function Video() {
         height="100%"
         width="100%"
         volume={volume}
+        fileConfig={{ attributes: { autoPlay: false } }}
         onProgress={onProgress}
         onDuration={onDuration}
         //  muted
