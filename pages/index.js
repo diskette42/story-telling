@@ -705,8 +705,14 @@ function Video() {
         </div>
       )}
 
-      <style jsx>
+      <style jsx global>
         {`
+          body {
+            background: black;
+          }
+          .player {
+            z-index: -2 !important;
+          }
           .submit-btn,
           .submit-btn-mobile {
             margin-top: 5px;
@@ -746,7 +752,8 @@ function Video() {
             width: auto;
             height: 100vh;
             overflow: hidden;
-            background: black;
+            // background: black;
+            // z-index: -5 !important;
           }
 
           .the-text {
