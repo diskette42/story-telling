@@ -530,10 +530,7 @@ function Video() {
         <div className="game-content">
           <a.div className="game-q1" style={secondContentPropsTwoNo}>
             {matches && matchesHeight && (
-              <div
-                className="game-content d-flex image"
-                style={{ zIndex: "-5 !important" }}
-              >
+              <div className="game-content d-flex image">
                 <div>
                   <img src="image/angel.png" width="auto" height={400} />
                 </div>
@@ -546,7 +543,6 @@ function Video() {
               style={{
                 textAlign: "center",
                 margin: "10px 0px",
-                zIndex: "1 !important",
               }}
             >
               Actually, the chaos that you’ve seen may not come from the outside
@@ -726,7 +722,7 @@ function Video() {
             background: linear-gradient(180deg, #79c1f4, #4300d2);
           }
           .image {
-            z-index: 0 !important;
+            z-index: -5 !important;
           }
           @media only screen and (max-width: 750px) {
             .last-game-container {
