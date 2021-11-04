@@ -848,11 +848,11 @@ function Video() {
           .game-q1 {
             opacity: 1;
             transition: all 5s linear;
-            background: linear-gradient(
-              137.32deg,
-              rgba(10, 8, 43, 0.96) 0.02%,
-              rgba(39, 0, 102, 0.96) 99.96%
-            );
+            // background: linear-gradient(
+            //   137.32deg,
+            //   rgba(10, 8, 43, 0.96) 0.02%,
+            //   rgba(39, 0, 102, 0.96) 99.96%
+            // );
             color: white;
           }
           .earth-click {
