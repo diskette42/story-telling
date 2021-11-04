@@ -530,7 +530,10 @@ function Video() {
         <div className="game-content">
           <a.div className="game-q1" style={secondContentPropsTwoNo}>
             {matches && matchesHeight && (
-              <div className="game-content d-flex image">
+              <div
+                className="game-content d-flex image"
+                style={{ zIndex: "-5 !important" }}
+              >
                 <div>
                   <img src="image/angel.png" width="auto" height={400} />
                 </div>
