@@ -269,7 +269,7 @@ function Video() {
         height="100%"
         width="100%"
         volume={volume}
-        fileConfig={{ attributes: { autoPlay: false } }}
+        playsinline
         onProgress={onProgress}
         onDuration={onDuration}
         //  muted
