@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Rampart+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
 html,
 body,
 div,
@@ -124,8 +124,8 @@ table {
   border-spacing: 0;
 }
 div {
-  font-family: 'Architects Daughter', cursive;
-  font-size: 2rem;
+  font-family: 'Kanit', cursive;
+  font-size: 1.2rem;
   font-weight: 1rem;
   color: white;
   /* font-family: 'Rampart One', cursive; */

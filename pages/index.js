@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import TextTransition, { presets } from "react-text-transition";
 import ReactPlayer from "react-player";
+import Sound from "react-sound";
 import { useSpring, animated as a } from "react-spring";
 import { useMediaQuery } from "@material-ui/core";
 function Video() {
   const [playing, setPlaying] = useState(false);
+  const [onPlaying, setOnPlaying] = useState(false);
+  const [soundPlaying, setSoundPlaying] = useState();
   const matches = useMediaQuery("(min-width:700px )");
   const matchesHeight = useMediaQuery("(min-height:656px)");
   const FirstYesAnswer = [
@@ -12,7 +15,11 @@ function Video() {
     "“Let me show you the world”",
   ];
   const FirstNoAnswer = [];
+  const [audio] = useState(
+    typeof Audio !== "undefined" && new Audio("/vid/my-audio.mp3")
+  );
   const [volume, setVolume] = useState(0);
+
   const [startClick, setStartClick] = useState(false);
 
   const [player, setPlayer] = useState();
@@ -33,11 +40,54 @@ function Video() {
   const [isDivVisible, setIsDivVisible] = useState(false);
   const [isDivVisibleForQ2, setIsDivVisibleforQ2] = useState(false);
 
-  const questionOneSecondProps = useSpring({
-    opacity: isDivVisible ? 1 : 0,
-    color: "white",
-    delay: 100,
+  const questionZero = useSpring({
+    opacity: zeroQuestionAppend ? "1" : "0",
+    background:
+      "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
+    padding: "15px",
+    borderRadius: "15px",
+    config: {
+      duration: 2000, // duration for the whole animation form start to end
+    },
 
+    // delay:200
+    // marginTop: greetingStatus ? 0 : 0
+  });
+  // First Question Components Style
+  const firstContentProps = useSpring({
+    opacity: firstQuestionAppend ? 1 : 0, // duration for the whole animation form start to end
+    config: {
+      duration: 200,
+    },
+    background:
+      "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
+    padding: "15px",
+    borderRadius: "15px",
+
+    // delay:200
+    // marginTop: greetingStatus ? 0 : 0
+  });
+  const angelCome = useSpring({
+    opacity: firstQuestionAppend ? "1 " : "0 ",
+    transform: firstQuestionAppend ? "translateX(0px) " : "translateX(-500px) ",
+    config: {
+      duration: 1000, // duration for the whole animation form start to end
+    },
+  });
+  const astroCome = useSpring({
+    opacity: firstQuestionAppend ? 1 : 0,
+    transform: firstQuestionAppend ? "translateX(0px) " : "translateX(500px) ",
+    config: {
+      duration: 1000, // duration for the whole animation form start to end
+    },
+  });
+  const firstQuestionButton = useSpring({
+    opacity: firstQuestionAppend ? 1 : 0, // duration for the whole animation form start to end
+    config: {
+      duration: 2000,
+    },
+
+    // delay:200
     // marginTop: greetingStatus ? 0 : 0
   });
   const questionOneAnsProps = useSpring({
@@ -47,48 +97,76 @@ function Video() {
 
     // marginTop: greetingStatus ? 0 : 0
   });
-  const questionZero = useSpring({
-    opacity: zeroQuestionAppend ? 1 : 0,
-    background:
-      "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
-    padding: "15px",
-    borderRadius: "15px",
-    // delay:200
+  const questionOneSecondProps = useSpring({
+    opacity: isDivVisible ? 1 : 0,
+    color: "white",
+    config: {
+      duration: 1000,
+    },
+
     // marginTop: greetingStatus ? 0 : 0
   });
-  const firstContentProps = useSpring({
-    opacity: firstQuestionAppend ? 1 : 0,
-    background:
-      "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
-    padding: "15px",
-    borderRadius: "15px",
-    // delay:200
-    // marginTop: greetingStatus ? 0 : 0
-  });
+  // Second Question Components Style
   const secondContentProps = useSpring({
     opacity: secondQuestionAppend ? 1 : 0,
-    background:
-      "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
-    // padding:'15px',
+    // background:
+
     borderRadius: "15px",
+    config: {
+      duration: 1000,
+    },
+    // delay: 100,
+
+    // delay:200
+    // marginTop: greetingStatus ? 0 : 0
+  });
+  const angelComeSecondContent = useSpring({
+    opacity: secondQuestionAppend ? "1 " : "0 ",
+    transform: secondQuestionAppend
+      ? "translateX(0px) "
+      : "translateX(-500px) ",
+    config: {
+      duration: 1000, // duration for the whole animation form start to end
+    },
+  });
+  const astroComeSecondContent = useSpring({
+    opacity: secondQuestionAppend ? 1 : 0,
+    transform: secondQuestionAppend ? "translateX(0px) " : "translateX(500px) ",
+    config: {
+      duration: 1000, // duration for the whole animation form start to end
+    },
+  });
+  const secondQuestionButton = useSpring({
+    opacity: secondQuestionAppend ? 1 : 0, // duration for the whole animation form start to end
+    config: {
+      duration: 2000,
+    },
+
     // delay:200
     // marginTop: greetingStatus ? 0 : 0
   });
   const secondContentPropsTwo = useSpring({
     opacity: isDivVisibleForQ2 ? 1 : 0,
-    background:
-      "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
-    padding: "15px",
-    borderRadius: "15px",
+    // background:
+    //   "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
+
+    config: {
+      duration: 1000,
+    },
+
     // delay:200
     // marginTop: greetingStatus ? 0 : 0
   });
   const secondContentPropsTwoNo = useSpring({
     opacity: 1,
-    background:
-      "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
+    // background:
+    //   "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
     padding: "15px",
     borderRadius: "15px",
+    config: {
+      duration: 1000,
+    },
+
     // delay:200
     // marginTop: greetingStatus ? 0 : 0
   });
@@ -105,12 +183,40 @@ function Video() {
   //   }, 5000);
   //   return () => clearTimeout(timer);
   // }, []);
+  useEffect(() => {
+    // onPlaying ? : audio.pause();
+    if (onPlaying == true) {
+      audio.play();
+      audio.loop = true;
+    } else {
+      audio.pause();
+    }
 
+    if (currentTime > 15 && currentTime < 16) {
+      if (secondQuestionAppend == null) {
+        setPlaying(false);
+        setSecondQuestionAppend(true);
+      }
+      // console.log(player.getCurrentTime())
+    }
+
+    // }
+  }, [currentTime, onPlaying]);
   const startGame = () => {
     setPlaying(true);
-    setVolume(1);
+    setOnPlaying(true);
+    // startSound();
+    setVolume(0);
     setStartClick(true);
-    // console.log('start')
+    setZeroQuestionAppend(true);
+    setTimeout(() => {
+      setPlaying(false);
+    }, 5000);
+    console.log("start");
+  };
+
+  const soundref = (e) => {
+    setSoundPlaying(e);
   };
   // console.log(playing)
 
@@ -137,49 +243,39 @@ function Video() {
   //   // setPlaying(false)
   //   setFirstQappend(true)
   // }
-  useEffect(() => {
-    // if(currentTime>5 && currentTime<6){
-    //   if (firstQuestionAppend==null){
-    //     setPlaying(false)
-    //     setFirstQuestionAppend(true)
-    //   }
-    // // console.log(player.getCurrentTime())
+  // useEffect(() => {
 
-    // }
-    if (currentTime > 5 && currentTime < 6) {
-      if (zeroQuestionAppend == null) {
-        setPlaying(false);
-        setZeroQuestionAppend(true);
-      }
-      // console.log(player.getCurrentTime())
+  //   if (currentTime > 1 && currentTime < 2) {
+  //     if (zeroQuestionAppend == null) {
+  //       setPlaying(false);
+  //       setZeroQuestionAppend(true);
+  //     }
+
+  //   }
+
+  // }, [currentTime]);
+
+  // Question0-start
+  const onSubmitForm = () => {
+    if (!checkName || !checkAge) {
+      setFormFalse(true);
     }
+    if (checkName && checkAge) {
+      setFormFalse(false);
+      setName(checkName);
+      setAge(checkAge);
+      setZeroQuestionAppend(false);
+      setPlaying(true);
+      // setFirstQuestionAppend(true);
 
-    // if(currentTime>1.5 && currentTime<1.6){
-    //   if (thirdQuestionAppend==null){
-    //     setPlaying(false)
-    //     setThirdQuestionAppend(true)
-    //   }
-    // // console.log(player.getCurrentTime())
-    // }
-  }, [currentTime]);
-  useEffect(() => {
-    // console.log(currentTime);
-    if (currentTime > 60 && currentTime < 61) {
-      if (secondQuestionAppend == null) {
+      setTimeout(() => {
         setPlaying(false);
-        setSecondQuestionAppend(true);
-      }
-      // console.log(player.getCurrentTime())
+        setFirstQuestionAppend(true);
+        // console.log("10 seconds later");
+      }, 2000);
+      // return () => clearTimeout(timer);
     }
-    // if(currentTime>1.5 && currentTime<1.6){
-    //   if (thirdQuestionAppend==null){
-    //     setPlaying(false)
-    //     setThirdQuestionAppend(true)
-    //   }
-    // // console.log(player.getCurrentTime())
-    // }
-  }, [currentTime]);
-
+  };
   // Q2
   const questionOne = (answer) => {
     setQuestionOneAns(answer);
@@ -190,8 +286,8 @@ function Video() {
       setPlaying(false);
 
       // console.log("15 seconds later");
-    }, 15000);
-    return () => clearTimeout(timer);
+    }, 5000);
+    // return () => clearTimeout(timer);
   };
   //  Q3
 
@@ -204,7 +300,7 @@ function Video() {
       const timer = setTimeout(() => {
         setIsDivVisibleforQ2(true);
         // console.log("10 seconds later");
-      }, 10000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
 
@@ -221,7 +317,7 @@ function Video() {
       const timer = setTimeout(() => {
         setIsDivVisibleforQ2(true);
         // console.log("10 seconds later");
-      }, 30000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   };
@@ -235,26 +331,17 @@ function Video() {
     const text = e.target.value;
     setCheckAge(text);
   };
-  const onSubmitForm = () => {
-    if (!checkName || !checkAge) {
-      setFormFalse(true);
-    }
-    if (checkName && checkAge) {
-      setFormFalse(false);
-      setName(checkName);
-      setAge(checkAge);
-      setZeroQuestionAppend(false);
-      setPlaying(true);
-      const timer = setTimeout(() => {
-        setPlaying(false);
-        setFirstQuestionAppend(true);
-        // console.log("10 seconds later");
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  };
+
   return (
     <div className="game-section">
+      {/* <Sound
+        url="vid/grand.mp3"
+        volume={volume}
+        loop={true}
+        playStatus={onPlaying}
+        ref={soundref}
+        autoLoad={onPlaying}
+      /> */}
       <ReactPlayer
         ref={ref}
         playing={playing}
@@ -287,8 +374,8 @@ function Video() {
         </div>
       </div>
       {zeroQuestionAppend && (
-        <div className="gameStart-content">
-          <a.div className="game-q1 row" style={questionZero}>
+        <a.div className="gameStart-content" style={questionZero}>
+          <div className="game-q1 row">
             {matches && (
               <div className="col-xs-12 col-xl-6 d-flex align-items-center justify-content-center ">
                 <img src="image/angel.png" width="auto" height={400} />
@@ -296,18 +383,18 @@ function Video() {
             )}
             <div
               className={`col-xs-12 col-xl-6 text-center ${
-                matches && `the-text the-text-background`
+                matches && `the-text form-background`
               } d-flex align-items-center justify-content-center `}
             >
               <div className="d-flex flex-column w-100">
                 <div className="d-flex flex-column">
-                  <div className={matches ? "text-dark" : "text-white"}>
+                  <div className={matches ? "text-white" : "text-white"}>
                     What is your name:
                   </div>
                   <input onChange={setTheName} />
                 </div>
                 <div className="d-flex flex-column">
-                  <div className={matches ? "text-dark" : "text-white"}>
+                  <div className={matches ? "text-white" : "text-white"}>
                     Your Age:
                   </div>
                   <input onChange={setTheAge} />
@@ -328,8 +415,8 @@ function Video() {
                 )}
               </div>
             </div>
-          </a.div>
-        </div>
+          </div>
+        </a.div>
       )}
       {/* Question 1 */}
       {firstQuestionAppend && (
@@ -338,12 +425,12 @@ function Video() {
             <a.div style={firstContentProps}>
               {matches && matchesHeight && (
                 <div className="game-content d-flex image">
-                  <div>
+                  <a.div style={angelCome}>
                     <img src="image/angel.png" width="auto" height={400} />
-                  </div>
-                  <div>
+                  </a.div>
+                  <a.div style={astroCome}>
                     <img src="image/astronaut.png" width="auto" height={400} />
-                  </div>
+                  </a.div>
                 </div>
               )}
               <div className="game-q1">
@@ -352,19 +439,21 @@ function Video() {
                 </div>
                 <div className="game-group">
                   <div className="game-choice-group">
-                    <div
+                    <a.div
                       className="game-choice-btn"
+                      style={firstQuestionButton}
                       onClick={() => questionOne("Yes")}
                     >
                       Yes,Absolutely
-                    </div>
+                    </a.div>
 
-                    <div
+                    <a.div
                       className="game-choice-btn"
+                      style={firstQuestionButton}
                       onClick={() => questionOne("No")}
                     >
                       No
-                    </div>
+                    </a.div>
                   </div>
                 </div>
               </div>
@@ -393,8 +482,8 @@ function Video() {
             </a.div>
           )}
           {isDivVisible && (
-            <a.div className="game-q1" style={questionOneSecondProps}>
-              <div className="w-100">
+            <div className="game-q1">
+              <a.div className="w-100" style={questionOneSecondProps}>
                 <div className="d-flex justify-content-center">
                   <img src="https://nineplanets.org/wp-content/uploads/2019/09/earth.png" />
                   <div
@@ -410,20 +499,20 @@ function Video() {
                 <div style={{ width: "400px" }} className="text-center m-auto">
                   Let me show you the world
                 </div>
-              </div>
-            </a.div>
+              </a.div>
+            </div>
           )}
         </div>
       )}
       {/* End of Question 1 */}
       {/* Question two */}
       {secondQuestionAppend && !questionTwoAnsYes && !questionTwoAnsNo && (
-        <div className="game-content">
+        <a.div className="game-content" style={secondContentProps}>
           {questionOneAns == "Yes" ? (
-            <a.div className="game-q1" style={secondContentProps}>
+            <div className="game-q1 game-q2-yes">
               {matches && matchesHeight && (
                 <div className="game-content d-flex image">
-                  <div>
+                  <a.div style={angelComeSecondContent}>
                     <img
                       src="image/angel.png"
                       width="auto"
@@ -435,8 +524,8 @@ function Video() {
                       }}
                       className="image"
                     />
-                  </div>
-                  <div>
+                  </a.div>
+                  <a.div style={astroComeSecondContent}>
                     <img
                       src="image/astronaut.png"
                       width="auto"
@@ -447,7 +536,7 @@ function Video() {
                         left: "-20px",
                       }}
                     />
-                  </div>
+                  </a.div>
                 </div>
               )}
               <div style={{ textAlign: "center", margin: "10px 0px" }}>
@@ -456,27 +545,29 @@ function Video() {
               </div>
               <div className="game-group">
                 <div className="game-choice-group">
-                  <div
+                  <a.div
                     className="game-choice-btn"
+                    style={secondQuestionButton}
                     onClick={() => questionTwo("Yes")}
                   >
                     Yes, it always be my home
-                  </div>
+                  </a.div>
 
-                  <div
+                  <a.div
                     className="game-choice-btn"
+                    style={secondQuestionButton}
                     onClick={() => questionTwo("No")}
                   >
                     Not sure that I can handle the change
-                  </div>
+                  </a.div>
                 </div>
               </div>
-            </a.div>
+            </div>
           ) : (
-            <a.div className="game-q1" style={secondContentProps}>
+            <div className="game-q1 game-q2-yes">
               {matches && matchesHeight && (
                 <div className="game-content d-flex">
-                  <div>
+                  <a.div style={angelComeSecondContent}>
                     <img
                       src="image/angel.png"
                       width="auto"
@@ -487,8 +578,8 @@ function Video() {
                         left: "20px",
                       }}
                     />
-                  </div>
-                  <div>
+                  </a.div>
+                  <a.div style={astroComeSecondContent}>
                     <img
                       src="image/astronaut.png"
                       width="auto"
@@ -499,7 +590,7 @@ function Video() {
                         left: "-20px",
                       }}
                     />
-                  </div>
+                  </a.div>
                 </div>
               )}
               <div style={{ textAlign: "center", margin: "10px 0px" }}>
@@ -507,29 +598,31 @@ function Video() {
               </div>
               <div className="game-group">
                 <div className="game-choice-group">
-                  <div
+                  <a.div
                     className="game-choice-btn"
+                    style={secondQuestionButton}
                     onClick={() => questionTwo("Yes")}
                   >
                     Let’s go home, I’ve changed my mind
-                  </div>
+                  </a.div>
 
-                  <div
+                  <a.div
                     className="game-choice-btn"
+                    style={secondQuestionButton}
                     onClick={() => questionTwo("No")}
                   >
                     I don’t want to go back{" "}
-                  </div>
+                  </a.div>
                 </div>
               </div>
-            </a.div>
+            </div>
           )}
-        </div>
+        </a.div>
       )}
 
       {questionTwoAnsNo && !questionTwoAnsYes && !questionTwoPartTwoNo && (
-        <div className="game-content">
-          <a.div className="game-q1" style={secondContentPropsTwoNo}>
+        <a.div className="game-content" style={secondContentPropsTwoNo}>
+          <div className="game-q1 game-q2-yes">
             {matches && matchesHeight && (
               <div className="game-content d-flex image">
                 <div>
@@ -567,8 +660,8 @@ function Video() {
                 </div>
               </div>
             </div>
-          </a.div>
-        </div>
+          </div>
+        </a.div>
       )}
 
       {questionTwoAnsYes && (
@@ -581,13 +674,16 @@ function Video() {
             </div>
           ) : (
             //  Second Transition
-            <div className="gamename-input last-game-container">
+            <a.div
+              className="gamename-input last-game-container"
+              style={secondContentPropsTwo}
+            >
               {/* <h5 style={{color:'red',padding:'0',margin:'0'}}</h5> */}
               <div className="text-white text-center">
                 {age} Years since you left the earth. Do you still remember what
                 it was like?
               </div>
-              <a.div className="game-q1" style={secondContentPropsTwo}>
+              <div className="game-q1 game-q2-yes">
                 <div style={{ textAlign: "center", margin: "10px 0px" }}>
                   Any stagnant that burden your life:
                 </div>
@@ -624,11 +720,17 @@ function Video() {
                       >
                         <div className="text-center  my-button">Friendship</div>
                       </div>
+                      <div
+                        className="last-game-choice-btn col-12"
+                        onClick={() => lastQuestion("Education")}
+                      >
+                        <div className="text-center  my-button">Education</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </a.div>
-            </div>
+              </div>
+            </a.div>
           )}
         </div>
       )}
@@ -656,10 +758,13 @@ function Video() {
             </div>
           ) : (
             //  Second Transition
-            <div className="gamename-input last-game-container">
+            <a.div
+              className="gamename-input last-game-container"
+              style={secondContentPropsTwo}
+            >
               {/* <h5 style={{color:'red',padding:'0',margin:'0'}}</h5> */}
               <div className="text-white"></div>
-              <a.div className="game-q1" style={secondContentPropsTwoNo}>
+              <div className="game-q1 game-q2-yes">
                 <div style={{ textAlign: "center", margin: "10px 0px" }}>
                   Any stagnant that burden your life:
                 </div>
@@ -696,11 +801,17 @@ function Video() {
                       >
                         <div className="text-center  my-button">Friendship</div>
                       </div>
+                      <div
+                        className="last-game-choice-btn col-12"
+                        onClick={() => lastQuestion("Education")}
+                      >
+                        <div className="text-center  my-button">Education</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </a.div>
-            </div>
+              </div>
+            </a.div>
           )}
         </div>
       )}
@@ -717,13 +828,12 @@ function Video() {
           .submit-btn-mobile {
             margin-top: 5px;
             border-radius: 15px;
+            padding: 5px;
+            margin: 10px 0px;
+            cursor: pointer;
           }
           .submit-btn {
-            background: linear-gradient(
-              137.32deg,
-              rgba(10, 8, 43, 0.96) 0.02%,
-              rgba(39, 0, 102, 0.96) 99.96%
-            );
+            background: linear-gradient(180deg, #79c1f4, #4300d2);
           }
           .submit-btn-mobile {
             background: linear-gradient(180deg, #79c1f4, #4300d2);
@@ -765,21 +875,23 @@ function Video() {
             border: 5px solid black;
             color: black;
           }
+          .form-background {
+            // background: white;
+            // border: 5px solid black;
+            color: black;
+          }
           .gameStart-content {
             position: absolute;
-            // width:100%;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            // display:flex;
-            // justify-content:center;
           }
           .start-btn {
             background: linear-gradient(180deg, #79c1f4, #4300d2);
             cursor: pointer;
             opacity: 1;
             border-radius: 30px;
-            padding: 50px;
+            padding: 10px;
           }
 
           .game-content {
@@ -794,12 +906,16 @@ function Video() {
           .game-group {
             display: flex;
             width: 100%;
+            justify-content: center;
           }
           .game-choice-group {
             display: flex;
+            justify-content: center;
+
             flex-direction: row;
             width: 100%;
             padding: 15px;
+            width: 80%;
           }
           .last-game-choice-group {
             // display:flex;
@@ -817,9 +933,12 @@ function Video() {
             cursor: pointer;
             opacity: 1;
             border-radius: 20px;
-            padding: 10px;
+            padding: 5px 4px;
             width: 100%;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .game-choice-btn:hover,
           last-game-choice-btn:hover {
@@ -854,6 +973,14 @@ function Video() {
             //   rgba(39, 0, 102, 0.96) 99.96%
             // );
             color: white;
+          }
+          .game-q2-yes {
+            background: linear-gradient(
+              137.32deg,
+              rgba(10, 8, 43, 0.96) 0.02%,
+              rgba(39, 0, 102, 0.96) 99.96%
+            );
+            border-radius: 15px;
           }
           .earth-click {
             position: absolute;
