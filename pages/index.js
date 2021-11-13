@@ -803,7 +803,7 @@ function Video() {
               <div className="text-white"></div>
               <div className="game-q1 game-q2-yes">
                 <div style={{ textAlign: "center", margin: "10px 0px" }}>
-                  Any stagnant that burden your life:
+                  So what’s the problem that make you not sure
                 </div>
                 <div className="game-group">
                   <div className="last-game-choice-group">
