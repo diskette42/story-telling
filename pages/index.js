@@ -392,7 +392,7 @@ function Video() {
         height="100%"
         width="100%"
         volume={volume}
-        // playsinline
+        playsinline
         onProgress={onProgress}
         onDuration={onDuration}
         // muted
