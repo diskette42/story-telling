@@ -10,6 +10,7 @@ function Video() {
   const [soundPlaying, setSoundPlaying] = useState();
   const matches = useMediaQuery("(min-width:700px )");
   const matchesHeight = useMediaQuery("(min-height:656px)");
+
   const FirstYesAnswer = [
     "Well,I could not say that it is the earth that you remember. A lot of things have been going on, I mean, in the way you never expected.",
     "“Let me show you the world”",
@@ -19,7 +20,7 @@ function Video() {
     typeof Audio !== "undefined" && new Audio("/vid/my-audio.mp3")
   );
   const [volume, setVolume] = useState(0);
-
+  const controls = true;
   const [startClick, setStartClick] = useState(false);
 
   const [player, setPlayer] = useState();
@@ -32,7 +33,8 @@ function Video() {
   const [formFalse, setFormFalse] = useState("");
   const [zeroQuestionAppend, setZeroQuestionAppend] = useState(null);
   const [firstQuestionAppend, setFirstQuestionAppend] = useState(null);
-  const [questionOneAns, setQuestionOneAns] = useState("");
+  const [questionOneAns, setQuestionOneAns] = useState(null);
+  const [firstQButton, setFirstQButton] = useState(false);
   const [secondQuestionAppend, setSecondQuestionAppend] = useState(null);
   const [questionTwoAnsYes, setQuestionTwoAnsYes] = useState("");
   const [questionTwoAnsNo, setQuestionTwoAnsNo] = useState(false);
@@ -82,9 +84,9 @@ function Video() {
     },
   });
   const firstQuestionButton = useSpring({
-    opacity: firstQuestionAppend ? 1 : 0, // duration for the whole animation form start to end
+    display: firstQButton ? "block" : "none", // duration for the whole animation form start to end
     config: {
-      duration: 2000,
+      duration: 8000,
     },
 
     // delay:200
@@ -185,33 +187,45 @@ function Video() {
   // }, []);
   useEffect(() => {
     // onPlaying ? : audio.pause();
-    if (onPlaying == true) {
-      audio.play();
-      audio.loop = true;
-    } else {
-      audio.pause();
+    // if (onPlaying == true) {
+    //   audio.play();
+    //   audio.loop = true;
+    // } else {
+    //   audio.pause();
+    // }
+    // if (questionOneAns == null) {
+    //   // setTimeout(() => {
+    //   questionOne("Yes");
+    //   // }, 16000);
+    // }
+    if (currentTime > 27 && questionOneAns == null) {
+      // if (questionOneAns == " ") {
+      // setPlaying(false);
+      questionOne("Yes");
+      // }
+      // console.log(player.getCurrentTime())
     }
-
-    if (currentTime > 15 && currentTime < 16) {
+    if (currentTime > 80 && currentTime < 81) {
       if (secondQuestionAppend == null) {
-        setPlaying(false);
+        // setPlaying(false);
         setSecondQuestionAppend(true);
       }
       // console.log(player.getCurrentTime())
     }
-
     // }
   }, [currentTime, onPlaying]);
+  // console.log(currentTime);
   const startGame = () => {
     setPlaying(true);
     setOnPlaying(true);
     // startSound();
-    setVolume(0);
+    setVolume(1);
     setStartClick(true);
-    setZeroQuestionAppend(true);
     setTimeout(() => {
+      setZeroQuestionAppend(true);
       setPlaying(false);
-    }, 5000);
+      audio.play();
+    }, 12000);
     console.log("start");
   };
 
@@ -266,27 +280,49 @@ function Video() {
       setAge(checkAge);
       setZeroQuestionAppend(false);
       setPlaying(true);
+      audio.pause();
       // setFirstQuestionAppend(true);
 
       setTimeout(() => {
-        setPlaying(false);
+        // setPlaying(false);
         setFirstQuestionAppend(true);
+
         // console.log("10 seconds later");
-      }, 2000);
+      }, 3000);
+      setTimeout(() => {
+        // setPlaying(false);
+        setFirstQButton(true);
+
+        // console.log("10 seconds later");
+      }, 8000);
+
       // return () => clearTimeout(timer);
     }
   };
+  // const firstQAppend = ()=>{
+
+  // }
   // Q2
   const questionOne = (answer) => {
     setQuestionOneAns(answer);
+    // setQuestionOneAnsDuration(true);
     setPlaying(true);
     setFirstQuestionAppend(false);
-    const timer = setTimeout(() => {
+    // const ansDuration = setTimeout(() => {
+    //   setQuestionOneAnsDuration(false);
+    // }, 18000);
+    // clearTimeout(ansDuration);
+    // setTimeout(() => {
+    //   if (questionOneAns == "") {
+    //     setQuestionOneAns("Yes");
+    //   }
+    // }, 16000);
+    setTimeout(() => {
       setIsDivVisible(true);
       setPlaying(false);
 
       // console.log("15 seconds later");
-    }, 5000);
+    }, 26000);
     // return () => clearTimeout(timer);
   };
   //  Q3
@@ -345,22 +381,22 @@ function Video() {
       <ReactPlayer
         ref={ref}
         playing={playing}
-        // onReady={()=>{
-        //   setTimeout(()=>{
-        //     setPlaying(true)
-        //     setVolume(1)
-        //   },1000)
+        // onReady={() => {
+        //   setTimeout(() => {
+        //     setPlaying(true);
+        //     setVolume(1);
+        //   }, 1000);
         // }}
-        url="vid/main.mp4"
+        url="vid/latest.mp4"
         className="player"
         height="100%"
         width="100%"
         volume={volume}
-        playsinline
+        // playsinline
         onProgress={onProgress}
         onDuration={onDuration}
-        //  muted
-        // controls
+        // muted
+        // controls={controls}
       />
       <div className="gameStart-content">
         <div className="gamename-input">
@@ -389,13 +425,14 @@ function Video() {
               <div className="d-flex flex-column w-100">
                 <div className="d-flex flex-column">
                   <div className={matches ? "text-white" : "text-white"}>
-                    What is your name:
+                    Wow! Such a long trip. How have been? You still got it ,
+                    (answer your name)
                   </div>
                   <input onChange={setTheName} />
                 </div>
                 <div className="d-flex flex-column">
                   <div className={matches ? "text-white" : "text-white"}>
-                    Your Age:
+                    How long you have been on this journey for your whole life
                   </div>
                   <input onChange={setTheAge} />
                 </div>
