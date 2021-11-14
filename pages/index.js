@@ -32,6 +32,7 @@ function Video() {
   const [age, setAge] = useState("");
   const [formFalse, setFormFalse] = useState("");
   const [zeroQuestionAppend, setZeroQuestionAppend] = useState(null);
+  const [beforeQuestionOne, setBeforeQuestionOne] = useState(null);
   const [firstQuestionAppend, setFirstQuestionAppend] = useState(null);
   const [questionOneAns, setQuestionOneAns] = useState(null);
   const [firstQButton, setFirstQButton] = useState(false);
@@ -41,6 +42,7 @@ function Video() {
   const [questionTwoPartTwoNo, setQuestionTwoPartTwoNo] = useState(false);
   const [isDivVisible, setIsDivVisible] = useState(false);
   const [isDivVisibleForQ2, setIsDivVisibleforQ2] = useState(false);
+  const [watchedOutVisible, setWatchedOutVisible] = useState(false);
 
   const questionZero = useSpring({
     opacity: zeroQuestionAppend ? "1" : "0",
@@ -59,10 +61,21 @@ function Video() {
   const firstContentProps = useSpring({
     opacity: firstQuestionAppend ? 1 : 0, // duration for the whole animation form start to end
     config: {
-      duration: 200,
+      duration: 2000,
     },
     background:
       "linear-gradient(137.32deg,rgba(10,8,43,.96) .02%,rgba(39,0,102,.96) 99.96%)",
+    padding: "15px",
+    borderRadius: "15px",
+
+    // delay:200
+    // marginTop: greetingStatus ? 0 : 0
+  });
+  const watchedOutAsteroid = useSpring({
+    opacity: beforeQuestionOne ? 1 : 0, // duration for the whole animation form start to end
+    config: {
+      duration: 200,
+    },
     padding: "15px",
     borderRadius: "15px",
 
@@ -83,10 +96,19 @@ function Video() {
       duration: 1000, // duration for the whole animation form start to end
     },
   });
-  const firstQuestionButton = useSpring({
-    display: firstQButton ? "block" : "none", // duration for the whole animation form start to end
+  const firstQuestionTitle = useSpring({
+    opacity: firstQuestionAppend ? 1 : 0, // duration for the whole animation form start to end
     config: {
       duration: 8000,
+    },
+
+    // delay:200
+    // marginTop: greetingStatus ? 0 : 0
+  });
+  const firstQuestionButton = useSpring({
+    opacity: firstQuestionAppend ? "1" : "0", // duration for the whole animation form start to end
+    config: {
+      duration: 1000,
     },
 
     // delay:200
@@ -198,10 +220,31 @@ function Video() {
     //   questionOne("Yes");
     //   // }, 16000);
     // }
-    if (currentTime > 27 && questionOneAns == null) {
+    if (currentTime > 20 && currentTime < 21) {
+      setWatchedOutVisible(true);
+    }
+    if (currentTime > 30 && currentTime < 31) {
+      setBeforeQuestionOne(false);
+    }
+    if (currentTime > 33 && currentTime < 34) {
+      // if (questionOneAns == " ") {
+      // setPlaying(false);
+      setFirstQuestionAppend(true);
+      // }
+      // console.log(player.getCurrentTime())
+    }
+    if (currentTime > 40 && questionOneAns == null) {
       // if (questionOneAns == " ") {
       // setPlaying(false);
       questionOne("Yes");
+      // }
+      // console.log(player.getCurrentTime())
+    }
+    if (currentTime > 50 && currentTime < 51) {
+      // if (questionOneAns == " ") {
+      // setPlaying(false);
+      setIsDivVisible(true);
+      setPlaying(false);
       // }
       // console.log(player.getCurrentTime())
     }
@@ -214,7 +257,7 @@ function Video() {
     }
     // }
   }, [currentTime, onPlaying]);
-  // console.log(currentTime);
+  console.log(currentTime);
   const startGame = () => {
     setPlaying(true);
     setOnPlaying(true);
@@ -285,16 +328,17 @@ function Video() {
 
       setTimeout(() => {
         // setPlaying(false);
-        setFirstQuestionAppend(true);
+        setBeforeQuestionOne(true);
+        // setFirstQuestionAppend(true);
 
         // console.log("10 seconds later");
-      }, 3000);
-      setTimeout(() => {
-        // setPlaying(false);
-        setFirstQButton(true);
+      }, 1500);
+      // setTimeout(() => {
+      //   // setPlaying(false);
+      //   setWatchedOutVisible(true);
 
-        // console.log("10 seconds later");
-      }, 8000);
+      //   // console.log("10 seconds later");
+      // }, 3500);
 
       // return () => clearTimeout(timer);
     }
@@ -317,12 +361,12 @@ function Video() {
     //     setQuestionOneAns("Yes");
     //   }
     // }, 16000);
-    setTimeout(() => {
-      setIsDivVisible(true);
-      setPlaying(false);
+    // setTimeout(() => {
+    //   setIsDivVisible(true);
+    //   setPlaying(false);
 
-      // console.log("15 seconds later");
-    }, 26000);
+    //   // console.log("15 seconds later");
+    // }, 26000);
     // return () => clearTimeout(timer);
   };
   //  Q3
@@ -410,7 +454,7 @@ function Video() {
         </div>
       </div>
       {zeroQuestionAppend && (
-        <a.div className="gameStart-content" style={questionZero}>
+        <a.div className="gameStart-content question-zero" style={questionZero}>
           <div className="game-q1 row">
             {matches && (
               <div className="col-xs-12 col-xl-6 d-flex align-items-center justify-content-center ">
@@ -455,10 +499,45 @@ function Video() {
           </div>
         </a.div>
       )}
+      {/* Watched out the asteroid */}
+      {beforeQuestionOne && (
+        <div className="gameStart-content" style={{ width: "80%" }}>
+          <a.div
+            className="game-q1 row justify-content-center align-items-center"
+            style={watchedOutAsteroid}
+          >
+            {matches && matchesHeight && (
+              <div className="col-xs-12 col-xl-6 d-flex align-items-center justify-content-center ">
+                <img src="image/angel.png" width="auto" height={400} />
+              </div>
+            )}
+            {!watchedOutVisible ? (
+              <div
+                className={`col-xs-12 text-center ${
+                  matches && `the-text text-white`
+                } d-flex align-items-center justify-content-center`}
+              >
+                Watched out the asteroid
+              </div>
+            ) : (
+              <div
+                className={`col-xs-12 text-center ${
+                  matches && `the-text the-text`
+                } d-flex align-items-center justify-content-center`}
+              >
+                See! Life is thrilling!!! Any expectation could happen!
+              </div>
+            )}
+          </a.div>
+        </div>
+      )}
       {/* Question 1 */}
       {firstQuestionAppend && (
         <>
-          <div className="game-content">
+          <div className="game-content d-flex flex-column align-items-center">
+            {/* <a.div className="watched-out" style={watchedOutAsteroid}>
+              Watched out the asteroid
+            </a.div> */}
             <a.div style={firstContentProps}>
               {matches && matchesHeight && (
                 <div className="game-content d-flex image">
@@ -471,9 +550,9 @@ function Video() {
                 </div>
               )}
               <div className="game-q1">
-                <div style={{ textAlign: "center", margin: "10px 0px" }}>
+                <a.div style={{ firstQuestionTitle }} className="q1-title">
                   Are you ready to get back to Earth
-                </div>
+                </a.div>
                 <div className="game-group">
                   <div className="game-choice-group">
                     <a.div
@@ -923,6 +1002,9 @@ function Video() {
             top: 50%;
             transform: translate(-50%, -50%);
           }
+          .question-zero {
+            width: 70%;
+          }
           .start-btn {
             background: linear-gradient(180deg, #79c1f4, #4300d2);
             cursor: pointer;
@@ -944,6 +1026,17 @@ function Video() {
             display: flex;
             width: 100%;
             justify-content: center;
+          }
+          .watched-out {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -510%);
+            text-align: center;
+          }
+          .q1-title {
+            text-align: center;
+            margin: 10px 0px;
           }
           .game-choice-group {
             display: flex;
