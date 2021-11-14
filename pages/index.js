@@ -240,7 +240,7 @@ function Video() {
       // }
       // console.log(player.getCurrentTime())
     }
-    if (currentTime > 50 && currentTime < 51) {
+    if (currentTime > 51 && currentTime < 52) {
       // if (questionOneAns == " ") {
       // setPlaying(false);
       setIsDivVisible(true);
