@@ -283,7 +283,7 @@ function Video() {
     //   // }
     //   // console.log(player.getCurrentTime())
     // }
-    if (currentTime > 80 && currentTime < 81) {
+    if (currentTime > 117 && currentTime < 118) {
       if (secondQuestionAppend == null) {
         // setPlaying(false);
         setSecondQuestionAppend(true);
@@ -465,7 +465,7 @@ function Video() {
         //     setVolume(1);
         //   }, 1000);
         // }}
-        url="vid/latest.mp4"
+        url="vid/main.mp4"
         className="player"
         height="100%"
         width="100%"
