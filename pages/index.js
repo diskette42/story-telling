@@ -42,7 +42,7 @@ function Video() {
   const [questionTwoPartTwoNo, setQuestionTwoPartTwoNo] = useState(false);
   const [isDivVisible, setIsDivVisible] = useState(false);
   const [isDivVisibleForQ2, setIsDivVisibleforQ2] = useState(false);
-  const [watchedOutVisible, setWatchedOutVisible] = useState(false);
+  const [watchedOutVisible, setWatchedOutVisible] = useState(null);
 
   const questionZero = useSpring({
     opacity: zeroQuestionAppend ? "1" : "0",
@@ -81,6 +81,38 @@ function Video() {
 
     // delay:200
     // marginTop: greetingStatus ? 0 : 0
+  });
+  const watchOutText = useSpring({
+    opacity: watchedOutVisible == false ? 1 : 0, // duration for the whole animation form start to end
+    config: {
+      duration: 200,
+    },
+
+    // delay:200
+    // marginTop: greetingStatus ? 0 : 0
+  });
+  const watchOutTextTwo = useSpring({
+    opacity: watchedOutVisible ? 1 : 0, // duration for the whole animation form start to end
+    config: {
+      duration: 1000,
+    },
+
+    // delay:200
+    // marginTop: greetingStatus ? 0 : 0
+  });
+  const watchOutAngelCome = useSpring({
+    opacity: beforeQuestionOne ? "1 " : "0 ",
+    transform: beforeQuestionOne ? "translateX(0px) " : "translateX(-500px) ",
+    config: {
+      duration: 1000, // duration for the whole animation form start to end
+    },
+  });
+  const watchOutAstroCome = useSpring({
+    opacity: beforeQuestionOne ? 1 : 0,
+    transform: beforeQuestionOne ? "translateX(0px) " : "translateX(500px) ",
+    config: {
+      duration: 1000, // duration for the whole animation form start to end
+    },
   });
   const angelCome = useSpring({
     opacity: firstQuestionAppend ? "1 " : "0 ",
@@ -220,20 +252,23 @@ function Video() {
     //   questionOne("Yes");
     //   // }, 16000);
     // }
-    if (currentTime > 20 && currentTime < 21) {
+    if (currentTime > 28 && currentTime < 29) {
       setWatchedOutVisible(true);
     }
-    if (currentTime > 30 && currentTime < 31) {
+    if (currentTime > 33 && currentTime < 34) {
       setBeforeQuestionOne(false);
     }
-    if (currentTime > 33 && currentTime < 34) {
+    if (currentTime > 18 && currentTime < 21) {
+      setWatchedOutVisible(false);
+    }
+    if (currentTime > 36 && currentTime < 37) {
       // if (questionOneAns == " ") {
       // setPlaying(false);
       setFirstQuestionAppend(true);
       // }
       // console.log(player.getCurrentTime())
     }
-    if (currentTime > 40 && questionOneAns == null) {
+    if (currentTime > 41 && questionOneAns == null) {
       // if (questionOneAns == " ") {
       // setPlaying(false);
       questionOne("Yes");
@@ -359,7 +394,7 @@ function Video() {
     setTimeout(() => {
       setIsDivVisible(true);
       setPlaying(false);
-    }, 12000);
+    }, 10000);
     // setTimeout(() => {
     //   setIsDivVisible(true);
     //   setPlaying(false);
@@ -506,26 +541,34 @@ function Video() {
             style={watchedOutAsteroid}
           >
             {matches && matchesHeight && (
-              <div className="col-xs-12 col-xl-6 d-flex align-items-center justify-content-center ">
-                <img src="image/angel.png" width="auto" height={400} />
+              <div className="col-xs-12 d-flex align-items-center justify-content-center ">
+                <a.div style={watchOutAngelCome}>
+                  <img src="image/angel.png" width="auto" height={400} />
+                </a.div>
+                <a.div style={watchOutAstroCome}>
+                  <img src="image/astronaut.png" width="auto" height={400} />
+                </a.div>
+                {/* <img src="image/angel.png" width="auto" height={400} /> */}
               </div>
             )}
-            {!watchedOutVisible ? (
-              <div
+            {watchedOutVisible == false ? (
+              <a.div
                 className={`col-xs-12 text-center ${
                   matches && `the-text text-white`
                 } d-flex align-items-center justify-content-center`}
+                style={watchOutText}
               >
-                Watched out the asteroid
-              </div>
+                Watched out! That’s the asteroid !!!
+              </a.div>
             ) : (
-              <div
+              <a.div
                 className={`col-xs-12 text-center ${
                   matches && `the-text the-text`
                 } d-flex align-items-center justify-content-center`}
+                style={watchOutTextTwo}
               >
                 See! Life is thrilling!!! Any expectation could happen!
-              </div>
+              </a.div>
             )}
           </a.div>
         </div>
