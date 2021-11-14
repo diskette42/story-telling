@@ -240,14 +240,14 @@ function Video() {
       // }
       // console.log(player.getCurrentTime())
     }
-    if (currentTime > 49 && currentTime < 50) {
-      // if (questionOneAns == " ") {
-      // setPlaying(false);
-      setIsDivVisible(true);
-      setPlaying(false);
-      // }
-      // console.log(player.getCurrentTime())
-    }
+    // if (currentTime > 49 && currentTime < 50) {
+    //   // if (questionOneAns == " ") {
+    //   // setPlaying(false);
+    //   setIsDivVisible(true);
+    //   setPlaying(false);
+    //   // }
+    //   // console.log(player.getCurrentTime())
+    // }
     if (currentTime > 80 && currentTime < 81) {
       if (secondQuestionAppend == null) {
         // setPlaying(false);
@@ -356,11 +356,10 @@ function Video() {
     //   setQuestionOneAnsDuration(false);
     // }, 18000);
     // clearTimeout(ansDuration);
-    // setTimeout(() => {
-    //   if (questionOneAns == "") {
-    //     setQuestionOneAns("Yes");
-    //   }
-    // }, 16000);
+    setTimeout(() => {
+      setIsDivVisible(true);
+      setPlaying(false);
+    }, 12000);
     // setTimeout(() => {
     //   setIsDivVisible(true);
     //   setPlaying(false);
