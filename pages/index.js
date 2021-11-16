@@ -394,7 +394,7 @@ function Video() {
     setTimeout(() => {
       setIsDivVisible(true);
       setPlaying(false);
-    }, 10000);
+    }, 7000);
     // setTimeout(() => {
     //   setIsDivVisible(true);
     //   setPlaying(false);
@@ -567,7 +567,7 @@ function Video() {
                 } d-flex align-items-center justify-content-center`}
                 style={watchOutTextTwo}
               >
-                See! Life is thrilling!!! Any expectation could happen!
+                See! Life is thrilling!!! Any unexpectation could happen!
               </a.div>
             )}
           </a.div>
