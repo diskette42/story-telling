@@ -4,6 +4,8 @@ import ReactPlayer from "react-player";
 import Sound from "react-sound";
 import { useSpring, animated as a } from "react-spring";
 import { useMediaQuery } from "@material-ui/core";
+import Link from "next/link";
+import { useRouter } from "next/router";
 function Video() {
   const [playing, setPlaying] = useState(false);
   const [onPlaying, setOnPlaying] = useState(false);
@@ -435,8 +437,27 @@ function Video() {
       return () => clearTimeout(timer);
     }
   };
-
-  const lastQuestion = () => {};
+  const router = useRouter();
+  // const lastQuestion = (e) => {
+  //   if (e == "Education") {
+  //     router.push("https://mentalmu.wixsite.com/bjm13/game2");
+  //   }
+  //   if (e == "Love") {
+  //     router.push("https://mentalmu.wixsite.com/bjm13/home1");
+  //   }
+  //   if (e == "Health") {
+  //     router.push("​https://mentalmu.wixsite.com/bjm13/game1");
+  //   }
+  //   if (e == "Money") {
+  //     router.push("​https://mentalmu.wixsite.com/bjm13/game");
+  //   }
+  //   if (e == "Luck") {
+  //     router.push("​https://mentalmu.wixsite.com/bjm13/game3");
+  //   }
+  //   if (e == "Friendship") {
+  //     router.push("https://mentalmu.wixsite.com/bjm13/social-life-friendship");
+  //   }
+  // };
   const setTheName = (e) => {
     const text = e.target.value;
     setCheckName(text);
@@ -511,6 +532,7 @@ function Video() {
                 <div className="d-flex flex-column">
                   <div className={matches ? "text-white" : "text-white"}>
                     How long you have been on this journey for your whole life
+                    (Your age)
                   </div>
                   <input onChange={setTheAge} />
                 </div>
@@ -850,39 +872,55 @@ function Video() {
                     <div className="row">
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Love")}
+                        // onClick={() => lastQuestion("Love")}
                       >
-                        <div className="text-center  my-button">Love</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/home1">
+                          <div className="text-center  my-button">Love</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Money")}
+                        // onClick={() => lastQuestion("Money")}
                       >
-                        <div className="text-center  my-button">Money</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game">
+                          <div className="text-center  my-button">Money</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Luck")}
+                        // onClick={() => lastQuestion("Luck")}
                       >
-                        <div className="text-center  my-button">Luck</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game3">
+                          <div className="text-center  my-button">Luck</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Health")}
+                        // onClick={() => lastQuestion("Health")}
                       >
-                        <div className="text-center  my-button">Health</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game1">
+                          <div className="text-center  my-button">Health</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Friendship ")}
+                        // onClick={() => lastQuestion("Friendship ")}
                       >
-                        <div className="text-center  my-button">Friendship</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/social-life-friendship">
+                          <div className="text-center  my-button">
+                            Friendship
+                          </div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Education")}
+                        // onClick={() => lastQuestion("Education")}
                       >
-                        <div className="text-center  my-button">Education</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game2">
+                          <div className="text-center  my-button">
+                            Education
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -931,39 +969,55 @@ function Video() {
                     <div className="row">
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Love")}
+                        // onClick={() => lastQuestion("Love")}
                       >
-                        <div className="text-center  my-button">Love</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/home1">
+                          <div className="text-center  my-button">Love</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Money")}
+                        // onClick={() => lastQuestion("Money")}
                       >
-                        <div className="text-center  my-button">Money</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game">
+                          <div className="text-center  my-button">Money</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Luck")}
+                        // onClick={() => lastQuestion("Luck")}
                       >
-                        <div className="text-center  my-button">Luck</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game3">
+                          <div className="text-center  my-button">Luck</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Health")}
+                        // onClick={() => lastQuestion("Health")}
                       >
-                        <div className="text-center  my-button">Health</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game1">
+                          <div className="text-center  my-button">Health</div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Friendship ")}
+                        // onClick={() => lastQuestion("Friendship ")}
                       >
-                        <div className="text-center  my-button">Friendship</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/social-life-friendship">
+                          <div className="text-center  my-button">
+                            Friendship
+                          </div>
+                        </Link>
                       </div>
                       <div
                         className="last-game-choice-btn col-12"
-                        onClick={() => lastQuestion("Education")}
+                        // onClick={() => lastQuestion("Education")}
                       >
-                        <div className="text-center  my-button">Education</div>
+                        <Link href="https://mentalmu.wixsite.com/bjm13/game2">
+                          <div className="text-center  my-button">
+                            Education
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   </div>
